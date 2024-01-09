@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="BPMonitor.Views.BPLegend"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BPMonitor.Views"
+             Height="175" Width="400">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="0 5 0 0">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Normal" />
+                <TextBox Text="Systolic: &lt; 120 AND Diastolic: &lt; 80" Background="#2ecc71" IsReadOnly="True" Width="250" Margin="85 0 0 0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Elevated" />
+                <TextBox Text="Systolic: 120 - 129 AND Diastolic: less 80" Background="#F4D03F" IsReadOnly="True" Width="250" Margin="80 3 0 0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Hypertension - Stage 1" />
+                <TextBox Text="Systolic: 130 - 139 OR Diastolic: 80 - 89" Background="#F5B042" IsReadOnly="True" Width="250" Margin="3 3 0 0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Hypertension - Stage 2" />
+                <TextBox Text="Systolic: &gt; 140 OR Diastolic: &gt; 90" Background="#E67E22" IsReadOnly="True" Width="250" Margin="3 3 0 0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="High Crisis" />
+                <TextBox Text="Systolic: &gt; 80 AND Diastolic: &gt; 120" Background="#E74C3C" IsReadOnly="True" Width="250" Margin="69 3 0 0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

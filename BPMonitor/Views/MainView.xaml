@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="BPMonitor.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BPMonitor.Views"
+             Height="385" Width="785">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ViewResource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <CollectionViewSource x:Key="bpcol" Source="{Binding PressureReadings}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="BPReadingDate" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Source={StaticResource bpcol}}" SelectedItem="{Binding SelectedBp}" Height="350" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource DataGridStyle}" />
+            </DataGrid.GroupStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Normal">
+                            <Setter Property="Background" Value="#2ecc71"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Elevated">
+                            <Setter Property="Background" Value="#F4D03F"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Hypertension - Stage 1">
+                            <Setter Property="Background" Value="#F5B042"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Hypertension - Stage 2">
+                            <Setter Property="Background" Value=" #E67E22"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="High Crisis">
+                            <Setter Property="Background" Value="#E74C3C"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                <!--<Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Goal">
+                            <Setter Property="Background" Value="#A5BC39"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Normal">
+                            <Setter Property="Background" Value="#A5BC39"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Systolic High">
+                            <Setter Property="Background" Value="#FFDA46"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Elevated">
+                            <Setter Property="Background" Value="#FFDA46"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Diastolic High">
+                            <Setter Property="Background" Value="#FEBD46"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Stage1">
+                            <Setter Property="Background" Value="#FEBD46"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Low Crisis">
+                            <Setter Property="Background" Value="#F99F2C"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Stage2">
+                            <Setter Property="Background" Value="#F99F2C"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="High Crisis">
+                            <Setter Property="Background" Value="#F05139"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding BPStatus}" Value="Crisis">
+                            <Setter Property="Background" Value="#F05139"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>-->
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Date Time" Width="150" IsReadOnly="True" Binding="{Binding BPReadingTime}" />
+                <DataGridTextColumn Header="Systolic" Width="150" IsReadOnly="True" Binding="{Binding BPSystolic}" />
+                <DataGridTextColumn Header="Diastolic" Width="150" IsReadOnly="True" Binding="{Binding BPDiastolic}" />
+                <DataGridTextColumn Header="Pulse Rate" Width="150" IsReadOnly="True" Binding="{Binding BPPulseRate}" />
+                <DataGridTextColumn Header="Status" Width="150" IsReadOnly="True" Binding="{Binding BPStatus}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <local:BPLegend Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 3 3" Visibility="{Binding IsVisible}" />
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
+            <TextBlock Text="{Binding MessageAlert}" Margin="0 0 15 0" VerticalAlignment="Center" Width="390" />
+            <Button Content="{Binding LegendBtnName}" Command="{Binding HideLegendButton}" Style="{StaticResource Controlbutton}" Margin="0 0 5 0" />
+            <Button Content="Add New" IsDefault="True" Command="{Binding AddNewButton}" Style="{StaticResource Controlbutton}" Margin="0 0 5 0" />
+            <Button Content="Edit" Command="{Binding EditButton}" Style="{StaticResource Controlbutton}" Margin="0 0 5 0" />
+            <!--<Button Content="Show Omitted" Command="{Binding ShowOmittedButton}" Style="{StaticResource Controlbutton}" Margin="0 0 5 0" />-->
+        </StackPanel>
+    </Grid>
+</UserControl>
